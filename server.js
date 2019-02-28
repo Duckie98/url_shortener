@@ -41,7 +41,8 @@ app.post("/api/shorturl/new", (req, res) => {
       urlModel.findOne({ url: original }, (err, link) => {
         if (link) {
           res.json({
-            error: "URL already exist in the database"
+            error: "URL already exist in the database",
+            link: `https://url-shortener-demo.glitch.me/api/shorturl/${link.id}`
           });
         } else {
           urlModel.count({}, (err, count) => {
@@ -52,7 +53,8 @@ app.post("/api/shorturl/new", (req, res) => {
             newUrl.save();
             res.json({
               original_url: original,
-              short_url: count
+              short_url: count,
+              link: "https://url-shortener-demo.glitch.me/api/shorturl/count"
             });
           });
         }
